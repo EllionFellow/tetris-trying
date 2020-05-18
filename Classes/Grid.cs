@@ -27,6 +27,7 @@ namespace MyTry.Classes
                 }
             }
         }
+
         public int Height
         {
             get { return heightGrid; }
@@ -71,5 +72,16 @@ namespace MyTry.Classes
             }
         }
 
+        public void ClearGrid(Grid sender)
+        {
+            for (int i = 0; i < sender.Width; i++)
+            {
+                for (int j = 0; j < sender.Height; j++)
+                {
+                    Table[i, j] = false;
+
+                }
+            }
+        }
     }
 }

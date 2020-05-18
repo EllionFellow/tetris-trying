@@ -36,32 +36,38 @@ namespace MyTry
         {
             resizeMultiplierH = ((Height - 43) / setka.Height);
             resizeMultiplierW = ((Width - 17 -100) / setka.Width);
-            this.Invalidate();
+            Invalidate();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        Figure activeFigure;
+        private void Button2_Click(object sender, EventArgs e)
         {
-            
+            setka.ClearGrid(setka);
             timer1.Enabled = true;
             timer1.Start();
             timer1.Tick += (s,x) =>
                 {
-                    RandomSquare();
-
+                    if (activeFigure==null)
+                    {
+                        activeFigure = new Figure(3, 0);
+                        activeFigure.FigureInGrid(setka, activeFigure);
+                    }
+                    else
+                    {
+                        activeFigure.ClearLastFigure(setka,activeFigure);
+                        activeFigure.Y++;
+                        activeFigure.FigureInGrid(setka, activeFigure);
+                    }
+                    Invalidate();
+                    
                 };
         }
 
-        private void RandomSquare()
-        {
-            Random random = new Random();
-            setka.Table[random.Next(setka.Width), random.Next(setka.Height)] = true;
-            this.Invalidate();
-        }
+        
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -80,6 +86,8 @@ namespace MyTry
             y = e.Y;
             isMouseDown = true;
         }
+
+
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
