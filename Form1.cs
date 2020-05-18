@@ -67,5 +67,33 @@ namespace MyTry
         {
             setka.DrawGrid(e, setka, resizeMultiplierW, resizeMultiplierH);
         }
+
+
+
+        #region //moveForm
+
+        private int x, y;
+        private bool isMouseDown=false;
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            x = e.X;
+            y = e.Y;
+            isMouseDown = true;
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown)
+                this.Location = new Point(Location.X + e.X - x, Location.Y + e.Y - y);
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMouseDown = false;
+        }
+        
+
+        #endregion
+
     }
 }
