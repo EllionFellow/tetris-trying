@@ -8,14 +8,6 @@ namespace MyTry.Classes
 {
     class Figure
     {
-        private static readonly bool[,] figureI =
-        {
-            {false, false, false, true},
-            {false, false, false, true},
-            {false, false, false, true},
-            {false, false, false, true}
-        };
-
         private static readonly bool[,] figureI1 =
         {
             {false, false, false, false},
@@ -23,9 +15,45 @@ namespace MyTry.Classes
             {false, false, false, false},
             {false, false, false, false}
         };
+        private static readonly bool[,] figureI2 =
+        {
+            {false, false, false, true},
+            {false, false, false, true},
+            {false, false, false, true},
+            {false, false, false, true}
+        };
+        private static readonly bool[,] figureL1 =
+        {
+            {false, false, false, false},
+            {false, true, true, true},
+            {false, false, false, true},
+            {false, false, false, false}
+        };
+        private static readonly bool[,] figureL2 =
+        {
+            {false, false, false, false},
+            {false, false, true, true},
+            {false, false, true, false},
+            {false, false, true, false}
+        };
+        private static readonly bool[,] figureL3 =
+{
+            {false, false, false, false},
+            {false, true, false, false},
+            {false, true, true, true},
+            {false, false, false, false}
+        };
+        private static readonly bool[,] figureL4 =
+{
+            {false, false, false, true},
+            {false, false, false, true},
+            {false, false, true, true},
+            {false, false, false, false}
+        };
+
 
         private bool[,] figure;
-        private bool figureDropped;
+        public bool figureDropped;
 
         public bool[,] Table
         {
@@ -85,7 +113,10 @@ namespace MyTry.Classes
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    setka.Table[i + activeFigure.X, j + activeFigure.Y] = false;
+                    if (activeFigure.Table[i, j] == true)
+                    {
+                        setka.Table[i + activeFigure.X, j + activeFigure.Y] = false;
+                    }
                 }
             }
         }
@@ -94,13 +125,25 @@ namespace MyTry.Classes
         {
             figure = new bool[4, 4];
             Random random = new Random();
-            switch (random.Next(2))
+            switch (random.Next(6))
             {
                 case 0:
-                    figure = figureI;
+                    figure = figureI2;
                     break;
                 case 1:
                     figure = figureI1;
+                    break;
+                case 2:
+                    figure = figureL1;
+                    break;
+                case 3:
+                    figure = figureL2;
+                    break;
+                case 4:
+                    figure = figureL3;
+                    break;
+                case 5:
+                    figure = figureL4;
                     break;
             }
 
@@ -110,36 +153,76 @@ namespace MyTry.Classes
 
         public void FigureInGrid(Grid grid, Figure fig)
         {
+            if (!figureDropped)
+            {
                 for (int i = 0; i < 4; i++)
                 {
-                    if (!figureDropped)
+                    for (int j = 0; j < 4; j++)
                     {
-                        for (int j = 0; j < 4; j++)
+                        if (fig.Y + j >= 20)
                         {
-                            if (10 < i + fig.X || 20 < j + fig.Y)
-                            {
-                                figureDropped = true;
-                                break;
-                            }
-                            else
-                            {
-
-                                if (!grid.Table[i + fig.X, j + fig.Y])
-                                {
-                                    if (fig.Table[i, j])
-                                    {
-                                        grid.Table[i + fig.X, j + fig.Y] = true;
-                                    }
-                                }
-                            }
+                            figureDropped = true;
+                            break;
+                        }
+                        else
+                        {
+                            if (fig.Table[i, j])
+                                grid.Table[i + fig.X, j + fig.Y] = true;
                         }
                     }
                 }
+            }
+        }
 
-                if (figureDropped)
+        public bool IsNextStepReal(Figure xfig, Grid grid, int moveArrow)
+        {
+            bool nextStepReal = true;
+            int[] l = new int[4];
+            int[] t = new int[4];
+            int counter=0;
+
+            // Locating coordinates of TRUE in figure
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
                 {
-                    fig = null;
+                    if (xfig.Table[i, j] == true)
+                    {
+                        l[counter] = i;
+                        t[counter] = j;
+                        counter++;
+                    }
                 }
+            }
+
+
+            if (moveArrow == 0)
+            {
+                // Testing if max value of grid Y is lower then figure
+                if (xfig.Y + 5 > grid.Height)
+                {
+                    nextStepReal = false;
+                }
+                else
+                {
+                    // Testing for TRUE in Grid lower then true in figure
+                    for (int i = 0; i < 4; i++)
+                    {
+                            if (grid.Table[xfig.X + l[i], t[i] + 1 + xfig.Y] == false)
+                            {
+                                nextStepReal = true;
+                            }
+                            else
+                            {
+                                nextStepReal = false;
+                                break;
+                            }
+                        
+                    }
+                }
+            }
+
+            return nextStepReal;
         }
     }
 }

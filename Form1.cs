@@ -14,7 +14,7 @@ namespace MyTry
     public partial class Form1 : Form
     {
         float resizeMultiplierH, resizeMultiplierW;
-
+        Timer timer1;
         Grid setka;
         public Form1()
         {
@@ -46,6 +46,15 @@ namespace MyTry
         Figure activeFigure;
         private void Button2_Click(object sender, EventArgs e)
         {
+            button2.Enabled = false;
+            if (timer1 != null)
+            {
+                timer1.Dispose();
+            }
+            timer1 = new Timer();
+            timer1.Interval = 100;
+            activeFigure = null;
+            timer1.Stop();
             setka.ClearGrid(setka);
             timer1.Enabled = true;
             timer1.Start();
@@ -54,13 +63,32 @@ namespace MyTry
                     if (activeFigure==null)
                     {
                         activeFigure = new Figure(3, 0);
-                        activeFigure.FigureInGrid(setka, activeFigure);
+                        if (activeFigure.IsNextStepReal(activeFigure, setka, 0))
+                        {
+                            activeFigure.FigureInGrid(setka, activeFigure);
+                        }
+                        else
+                        {
+                            timer1.Dispose();
+                            MessageBox.Show("YOU LOOSE!","Great",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                            activeFigure = null;
+                            setka.ClearGrid(setka);
+                            button2.Enabled = true;
+                        }
                     }
                     else
                     {
-                        activeFigure.ClearLastFigure(setka,activeFigure);
-                        activeFigure.Y++;
-                        activeFigure.FigureInGrid(setka, activeFigure);
+                        activeFigure.ClearLastFigure(setka, activeFigure);
+                        if (activeFigure.IsNextStepReal(activeFigure, setka, 0))
+                        {
+                            activeFigure.Y++;
+                            activeFigure.FigureInGrid(setka, activeFigure);
+                        }
+                        else
+                        {
+                            activeFigure.FigureInGrid(setka, activeFigure);
+                            activeFigure = null;
+                        }
                     }
                     Invalidate();
                     
