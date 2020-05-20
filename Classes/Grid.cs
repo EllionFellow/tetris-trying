@@ -54,20 +54,20 @@ namespace MyTry.Classes
 
         public void DrawGrid(PaintEventArgs e, Grid grid, float reW,float reH)
         {
-            for (int x = 0; x < grid.Width + 1; x++)
+            for (int x = 2; x < grid.Width -1; x++)
             {
-                e.Graphics.DrawLine(Pens.Black, x * reW + 1, 0.0f + 1+23, x * reW + 1, grid.Height * reH + 1+23);
+                e.Graphics.DrawLine(Pens.Black, x * reW + 1 - 2*reW, 24, x * reW + 1 - 2*reW, (grid.Height -3) * reH + 24);
             }
-            for (int y = 0; y < grid.Height + 1; y++)
+            for (int y = 3; y < grid.Height + 1; y++)
             {
-                e.Graphics.DrawLine(Pens.Black, 0.0f + 1, y * reH + 1+23, grid.Width * reW + 1, y * reH + 1+23);
+                e.Graphics.DrawLine(Pens.Black, 1, y * reH + 24 - 3*reH, (grid.Width-4) * reW + 1, y * reH + 24 - 3*reH);
             }
-            for (int x = 0; x < grid.Width; x++)
+            for (int x = 0; x < grid.Width-2; x++)
             {
-                for (int y = 0; y < grid.Height; y++)
+                for (int y = 3; y < grid.Height; y++)
                 {
-                    if (grid.table[x, y] == true)
-                        e.Graphics.DrawRectangle(Pens.Red, x * reW + 3, y * reH + 26, reW-4, reH -4);
+                    if (grid.table[x+2, y] == true)
+                        e.Graphics.DrawRectangle(Pens.Red, x * reW + 3, y * reH + 26 - 3*reH, reW-4, reH -4);
                 }
             }
         }

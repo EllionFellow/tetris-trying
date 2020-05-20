@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyTry.Classes
 {
-    class Figure
+    class Figure : IDisposable
     {
+        private int typeOfFigure { get; set; }
         private static readonly bool[,] figureI1 =
         {
             {false, false, false, false},
@@ -22,28 +24,28 @@ namespace MyTry.Classes
             {false, false, false, true},
             {false, false, false, true}
         };
-        private static readonly bool[,] figureL1 =
+        private static readonly bool[,] figureL3 =
         {
             {false, false, false, false},
             {false, true, true, true},
             {false, false, false, true},
             {false, false, false, false}
         };
-        private static readonly bool[,] figureL2 =
+        private static readonly bool[,] figureL4 =
         {
             {false, false, false, false},
             {false, false, true, true},
             {false, false, true, false},
             {false, false, true, false}
         };
-        private static readonly bool[,] figureL3 =
+        private static readonly bool[,] figureL5 =
 {
             {false, false, false, false},
             {false, true, false, false},
             {false, true, true, true},
             {false, false, false, false}
         };
-        private static readonly bool[,] figureL4 =
+        private static readonly bool[,] figureL6 =
 {
             {false, false, false, true},
             {false, false, false, true},
@@ -125,25 +127,31 @@ namespace MyTry.Classes
         {
             figure = new bool[4, 4];
             Random random = new Random();
-            switch (random.Next(6))
+            switch (random.Next(0,7))
             {
                 case 0:
-                    figure = figureI2;
+                    figure = figureI1;
+                    typeOfFigure = 1;
                     break;
                 case 1:
-                    figure = figureI1;
+                    figure = figureI2;
+                    typeOfFigure = 2;
                     break;
                 case 2:
-                    figure = figureL1;
+                    figure = figureL3;
+                    typeOfFigure = 3;
                     break;
                 case 3:
-                    figure = figureL2;
+                    figure = figureL4;
+                    typeOfFigure = 4;
                     break;
                 case 4:
-                    figure = figureL3;
+                    figure = figureL5;
+                    typeOfFigure = 5;
                     break;
                 case 5:
-                    figure = figureL4;
+                    figure = figureL6;
+                    typeOfFigure = 6;
                     break;
             }
 
@@ -159,7 +167,7 @@ namespace MyTry.Classes
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        if (fig.Y + j >= 20)
+                        if (fig.Y + j >= grid.Height)
                         {
                             figureDropped = true;
                             break;
@@ -171,6 +179,75 @@ namespace MyTry.Classes
                         }
                     }
                 }
+            }
+        }
+
+        public void changeTheInnerForm(Figure xfig, bool[,] nextForm)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    xfig.Table[i, j] = nextForm[i, j];
+                }
+            }
+        }
+
+        public Figure Rotate(Figure xfig, Grid grid)
+        {
+            bool real=true;
+            Figure temp = xfig;
+            switch (temp.typeOfFigure)
+            {
+                case 1:
+                    temp.typeOfFigure = 2;
+                     changeTheInnerForm(temp, figureI2);
+                    break;
+                case 2:
+                    temp.typeOfFigure = 1;
+                    changeTheInnerForm(temp, figureI1);
+                    break;
+                case 3:
+                    temp.typeOfFigure = 4;
+                    changeTheInnerForm(temp, figureL4);
+                    break;
+                case 4:
+                    temp.typeOfFigure = 5;
+                    changeTheInnerForm(temp, figureL5);
+                    break;
+                case 5:
+                    temp.typeOfFigure = 6;
+                    changeTheInnerForm(temp, figureL6);
+                    break;
+                case 6:
+                    temp.typeOfFigure = 3;
+                    changeTheInnerForm(temp, figureL3);
+                    break;
+                default:
+                    break;
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                if (real)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (temp.Table[i, j] && grid.Table[i + xfig.X, j + xfig.Y])
+                        {
+                            real = false;
+                            break;
+                        }
+                        else real = true;
+                    }
+                }
+            }
+            if (real)
+            {
+                return temp;
+            }
+            else
+            {
+                return xfig;
             }
         }
 
@@ -195,7 +272,7 @@ namespace MyTry.Classes
                 }
             }
 
-
+            // Move Down
             if (moveArrow == 0)
             {
                 // Testing if max value of grid Y is lower then figure
@@ -222,7 +299,50 @@ namespace MyTry.Classes
                 }
             }
 
+            // Move Left
+            if (moveArrow == 1)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (grid.Table[xfig.X + l[i] - 1, t[i] + xfig.Y] == false && xfig.X + l[i] > 2)
+                    {
+                        nextStepReal = true;
+                    }
+                    else
+                    {
+                        nextStepReal = false;
+                        break;
+                    }
+
+
+                }
+            }
+            // Move Right
+            if (moveArrow == 2)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (grid.Table[xfig.X + l[i] + 1, t[i] + xfig.Y] == false && xfig.X + l[i] < (grid.Width-3))
+                    {
+                        nextStepReal = true;
+                    }
+                    else
+                    {
+                        nextStepReal = false;
+                        break;
+                    }
+
+
+                }
+            }
             return nextStepReal;
+            
+        }
+
+        public void Dispose()
+        {
+            typeOfFigure = 22;
+            figure = null;
         }
     }
 }
