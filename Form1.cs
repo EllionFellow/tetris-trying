@@ -12,15 +12,18 @@ using System.Windows.Forms;
 
 namespace MyTry
 {
+
     public partial class Form1 : Form
     {
-        int level = 150;
+        
+        int level = 0;
         float resizeMultiplierH, resizeMultiplierW;
         System.Windows.Forms.Timer timer1;
         Grid setka;
         Figure activeFigure;
         public Form1()
         {
+
             KeyPreview = true;
             InitializeComponent();
             setka = new Grid(14, 23);
@@ -29,7 +32,7 @@ namespace MyTry
             ShowTheForm();
         }
 
-        async private void ShowTheForm()
+        private async void ShowTheForm()
         {
             while (Opacity<0.99)
             {
@@ -54,8 +57,8 @@ namespace MyTry
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            resizeMultiplierH = ((Height - 43) / (setka.Height - 3));
-            resizeMultiplierW = ((Width - 17 -100) / (setka.Width - 4));
+            resizeMultiplierH = (Height - 43) / (setka.Height - 3);
+            resizeMultiplierW = (Width - 17 -100) / (setka.Width - 4);
             Invalidate();
         }
 
@@ -68,13 +71,13 @@ namespace MyTry
         
         private void Button2_Click(object sender, EventArgs e)
         {
+            setka.GlobalLineCounter = 0;
             button2.Enabled = false;
-            if (timer1 != null)
+            timer1?.Dispose();
+            timer1 = new System.Windows.Forms.Timer
             {
-                timer1.Dispose();
-            }
-            timer1 = new System.Windows.Forms.Timer();
-            timer1.Interval = level;
+                Interval = 250-level
+            };
             activeFigure = null;
             timer1.Stop();
             setka.ClearGrid(setka);
@@ -115,7 +118,8 @@ namespace MyTry
                 {
                     activeFigure.FigureInGrid(setka, activeFigure);
                     activeFigure = null;
-                    timer1.Interval = level;
+                    setka.TestForClearing(setka);
+                    timer1.Interval = 250-level;
                 }
             }
             Invalidate();
@@ -123,6 +127,8 @@ namespace MyTry
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            label1.Text = setka.GlobalLineCounter.ToString();
+            e.Graphics.DrawRectangle(Pens.Gray,0,0,Width-1,Height-1);
             setka.DrawGrid(e, setka, resizeMultiplierW, resizeMultiplierH);
         }
 
@@ -180,6 +186,8 @@ namespace MyTry
                         activeFigure.FigureInGrid(setka, activeFigure);
                         Invalidate();
                     }
+                    break;
+                case Keys.B:
                     break;
                 default:
                     break;

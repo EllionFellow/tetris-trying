@@ -7,46 +7,46 @@ using System.Threading.Tasks;
 
 namespace MyTry.Classes
 {
-    class Figure : IDisposable
+    class Figure
     {
         private int typeOfFigure { get; set; }
-        private static readonly bool[,] figureI1 =
+        private bool[,] figureI1 =
         {
             {false, false, false, false},
             {true, true, true, true},
             {false, false, false, false},
             {false, false, false, false}
         };
-        private static readonly bool[,] figureI2 =
+        private bool[,] figureI2 =
         {
             {false, false, false, true},
             {false, false, false, true},
             {false, false, false, true},
             {false, false, false, true}
         };
-        private static readonly bool[,] figureL3 =
+        private bool[,] figureL3 =
         {
             {false, false, false, false},
             {false, true, true, true},
             {false, false, false, true},
             {false, false, false, false}
         };
-        private static readonly bool[,] figureL4 =
+        private bool[,] figureL4 =
         {
             {false, false, false, false},
             {false, false, true, true},
             {false, false, true, false},
             {false, false, true, false}
         };
-        private static readonly bool[,] figureL5 =
+        private bool[,] figureL5 =
 {
             {false, false, false, false},
             {false, true, false, false},
             {false, true, true, true},
             {false, false, false, false}
         };
-        private static readonly bool[,] figureL6 =
-{
+        private bool[,] figureL6 =
+        {
             {false, false, false, true},
             {false, false, false, true},
             {false, false, true, true},
@@ -127,30 +127,30 @@ namespace MyTry.Classes
         {
             figure = new bool[4, 4];
             Random random = new Random();
-            switch (random.Next(0,7))
+            switch (random.Next(0,6))
             {
                 case 0:
-                    figure = figureI1;
+                    СhangeTheInnerForm(this, figureI1);
                     typeOfFigure = 1;
                     break;
                 case 1:
-                    figure = figureI2;
+                    СhangeTheInnerForm(this, figureI2);
                     typeOfFigure = 2;
                     break;
                 case 2:
-                    figure = figureL3;
+                    СhangeTheInnerForm(this, figureL3);
                     typeOfFigure = 3;
                     break;
                 case 3:
-                    figure = figureL4;
+                    СhangeTheInnerForm(this, figureL4);
                     typeOfFigure = 4;
                     break;
                 case 4:
-                    figure = figureL5;
+                    СhangeTheInnerForm(this, figureL5);
                     typeOfFigure = 5;
                     break;
                 case 5:
-                    figure = figureL6;
+                    СhangeTheInnerForm(this, figureL6);
                     typeOfFigure = 6;
                     break;
             }
@@ -182,13 +182,13 @@ namespace MyTry.Classes
             }
         }
 
-        public void changeTheInnerForm(Figure xfig, bool[,] nextForm)
+        public void СhangeTheInnerForm(Figure xFig, bool[,] nextForm)
         {
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    xfig.Table[i, j] = nextForm[i, j];
+                    xFig.Table[i, j] = nextForm[i, j];
                 }
             }
         }
@@ -200,28 +200,28 @@ namespace MyTry.Classes
             switch (temp.typeOfFigure)
             {
                 case 1:
+                     СhangeTheInnerForm(temp, figureI2);
                     temp.typeOfFigure = 2;
-                     changeTheInnerForm(temp, figureI2);
                     break;
                 case 2:
+                    СhangeTheInnerForm(temp, figureI1);
                     temp.typeOfFigure = 1;
-                    changeTheInnerForm(temp, figureI1);
                     break;
                 case 3:
+                    СhangeTheInnerForm(temp, figureL4);
                     temp.typeOfFigure = 4;
-                    changeTheInnerForm(temp, figureL4);
                     break;
                 case 4:
+                    СhangeTheInnerForm(temp, figureL5);
                     temp.typeOfFigure = 5;
-                    changeTheInnerForm(temp, figureL5);
                     break;
                 case 5:
+                    СhangeTheInnerForm(temp, figureL6);
                     temp.typeOfFigure = 6;
-                    changeTheInnerForm(temp, figureL6);
                     break;
                 case 6:
+                    СhangeTheInnerForm(temp, figureL3);
                     temp.typeOfFigure = 3;
-                    changeTheInnerForm(temp, figureL3);
                     break;
                 default:
                     break;
@@ -237,7 +237,6 @@ namespace MyTry.Classes
                             real = false;
                             break;
                         }
-                        else real = true;
                     }
                 }
             }
@@ -245,10 +244,8 @@ namespace MyTry.Classes
             {
                 return temp;
             }
-            else
-            {
-                return xfig;
-            }
+
+            return xfig;
         }
 
         public bool IsNextStepReal(Figure xfig, Grid grid, int moveArrow)
@@ -337,12 +334,6 @@ namespace MyTry.Classes
             }
             return nextStepReal;
             
-        }
-
-        public void Dispose()
-        {
-            typeOfFigure = 22;
-            figure = null;
         }
     }
 }
