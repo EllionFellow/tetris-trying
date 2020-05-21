@@ -32,8 +32,9 @@ namespace MyTry.Classes
         }
 
         
-        public void TestForClearing(Grid setka)
+        public bool TestForClearing(Grid setka)
         {
+            bool toReturn = false;
             int counter = 0;
             for (int j = 4; j < setka.Height; j++)
             {
@@ -45,6 +46,7 @@ namespace MyTry.Classes
 
                 if (counter == setka.Width - 4)
                 {
+                    toReturn = true;
                     GlobalLineCounter++;
                     for (int i = 0; i < setka.Width-4; i++)
                     {
@@ -62,6 +64,7 @@ namespace MyTry.Classes
 
                 counter = 0;
             }
+                return toReturn;
         }
 
         public int Height
@@ -105,10 +108,10 @@ namespace MyTry.Classes
                     if (grid.table[x + 2, y] == true)
                     {
 
-                        //e.Graphics.DrawRectangle(Pens.Red, x * reW + 3, y * reH + 26 - 3 * reH, reW - 4, reH - 4);
+                        e.Graphics.DrawRectangle(Pens.Red, x * reW + 5, y * reH + 26 - 3 * reH, reW - 4, reH - 4);
                         
-                        Rectangle rect = new Rectangle(x * (int)reW + 5, y * (int)reH + 26 - 3 * (int)reH, (int)reW - 2, (int)reH - 2);
-                        e.Graphics.DrawIcon(Resources._1,rect);
+                        //Rectangle rect = new Rectangle(x * (int)reW + 5, y * (int)reH + 26 - 3 * (int)reH, (int)reW - 2, (int)reH - 2);
+                        //e.Graphics.DrawIcon(Resources._1,rect);
 
                     }
                 }

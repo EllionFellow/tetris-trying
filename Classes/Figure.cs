@@ -52,6 +52,97 @@ namespace MyTry.Classes
             {false, false, true, true},
             {false, false, false, false}
         };
+        private bool[,] figureJ7 =
+        {
+            {false, false, false, false},
+            {false, false, false, true},
+            {false, true, true, true},
+            {false, false, false, false}
+        };
+        private bool[,] figureJ8 =
+        {
+            {false, false, false, false},
+            {false, false, true, true},
+            {false, false, false, true},
+            {false, false, false, true}
+        };
+        private bool[,] figureJ9 =
+        {
+            {false, false, false, false},
+            {false, true, true, true},
+            {false, true, false, false},
+            {false, false, false, false}
+        };
+        private bool[,] figureJ10 =
+        {
+            {false, false, true, false},
+            {false, false, true, false},
+            {false, false, true, true},
+            {false, false, false, false}
+        };
+        private bool[,] figureO11 =
+        {
+            {false, false, false, false},
+            {false, false, true, true},
+            {false, false, true, true},
+            {false, false, false, false}
+        };
+        private bool[,] figureT12 =
+        {
+            {false, false, false, false},
+            {false, false, false, true},
+            {false, false, true, true},
+            {false, false, false, true}
+        };
+        private bool[,] figureT13 =
+        {
+            {false, false, false, false},
+            {false, true, true, true},
+            {false, false, true, false},
+            {false, false, false, false}
+        };
+        private bool[,] figureT14 =
+        {
+            {false, false, true, false},
+            {false, false, true, true},
+            {false, false, true, false},
+            {false, false, false, false}
+        };
+        private bool[,] figureT15 =
+           {
+            {false, false, false, false},
+            {false, false, true, false},
+            {false, true, true, true},
+            {false, false, false, false}
+        };
+        private bool[,] figureS16 =
+        {
+            {false, false, false, true},
+            {false, false, true, true},
+            {false, false, true, false},
+            {false, false, false, false}
+        };
+        private bool[,] figureS17 =
+        {
+            {false, false, false, false},
+            {false, true, true, false},
+            {false, false, true, true},
+            {false, false, false, false}
+        };
+        private bool[,] figureZ18 =
+        {
+            {false, false, false, false},
+            {false, false, true, false},
+            {false, false, true, true},
+            {false, false, false, true}
+        };
+        private bool[,] figureZ19 =
+{
+            {false, false, false, false},
+            {false, false, true, true},
+            {false, true, true, false},
+            {false, false, false, false}
+        };
 
 
         private bool[,] figure;
@@ -127,7 +218,7 @@ namespace MyTry.Classes
         {
             figure = new bool[4, 4];
             Random random = new Random();
-            switch (random.Next(0,6))
+            switch (random.Next(0,19))
             {
                 case 0:
                     СhangeTheInnerForm(this, figureI1);
@@ -152,6 +243,58 @@ namespace MyTry.Classes
                 case 5:
                     СhangeTheInnerForm(this, figureL6);
                     typeOfFigure = 6;
+                    break;
+                case 6:
+                    СhangeTheInnerForm(this, figureJ7);
+                    typeOfFigure = 7;
+                    break;
+                case 7:
+                    СhangeTheInnerForm(this, figureJ8);
+                    typeOfFigure = 8;
+                    break;
+                case 8:
+                    СhangeTheInnerForm(this, figureJ9);
+                    typeOfFigure = 9;
+                    break;
+                case 9:
+                    СhangeTheInnerForm(this, figureJ10);
+                    typeOfFigure = 10;
+                    break;
+                case 10:
+                    СhangeTheInnerForm(this, figureO11);
+                    typeOfFigure = 11;
+                    break;
+                case 11:
+                    СhangeTheInnerForm(this, figureT12);
+                    typeOfFigure = 12;
+                    break;
+                case 12:
+                    СhangeTheInnerForm(this, figureT13);
+                    typeOfFigure = 13;
+                    break;
+                case 13:
+                    СhangeTheInnerForm(this, figureT14);
+                    typeOfFigure = 14;
+                    break;
+                case 14:
+                    СhangeTheInnerForm(this, figureT15);
+                    typeOfFigure = 15;
+                    break;
+                case 15:
+                    СhangeTheInnerForm(this, figureS16);
+                    typeOfFigure = 16;
+                    break;
+                case 16:
+                    СhangeTheInnerForm(this, figureS17);
+                    typeOfFigure = 17;
+                    break;
+                case 17:
+                    СhangeTheInnerForm(this, figureZ18);
+                    typeOfFigure = 18;
+                    break;
+                case 18:
+                    СhangeTheInnerForm(this, figureZ19);
+                    typeOfFigure = 19;
                     break;
             }
 
@@ -223,6 +366,55 @@ namespace MyTry.Classes
                     СhangeTheInnerForm(temp, figureL3);
                     temp.typeOfFigure = 3;
                     break;
+                case 7:
+                    СhangeTheInnerForm(temp, figureJ8);
+                    temp.typeOfFigure = 8;
+                    break;
+                case 8:
+                    СhangeTheInnerForm(temp, figureJ9);
+                    temp.typeOfFigure = 9;
+                    break;
+                case 9:
+                    СhangeTheInnerForm(temp, figureJ10);
+                    temp.typeOfFigure = 10;
+                    break;
+                case 10:
+                    СhangeTheInnerForm(temp, figureJ7);
+                    temp.typeOfFigure = 7;
+                    break;
+                case 12:
+                    СhangeTheInnerForm(temp, figureT13);
+                    temp.typeOfFigure = 13;
+                    break;
+                case 13:
+                    СhangeTheInnerForm(temp, figureT14);
+                    temp.typeOfFigure = 14;
+                    break;
+                case 14:
+                    СhangeTheInnerForm(temp, figureT15);
+                    temp.typeOfFigure = 15;
+                    break;
+                case 15:
+                    СhangeTheInnerForm(temp, figureT12);
+                    temp.typeOfFigure = 12;
+                    break;
+                case 16:
+                    СhangeTheInnerForm(temp, figureS17);
+                    temp.typeOfFigure = 17;
+                    break;
+                case 17:
+                    СhangeTheInnerForm(temp, figureS16);
+                    temp.typeOfFigure = 16;
+                    break;
+                case 18:
+                    СhangeTheInnerForm(temp, figureZ19);
+                    temp.typeOfFigure = 19;
+                    break;
+                case 19:
+                    СhangeTheInnerForm(temp, figureZ18);
+                    temp.typeOfFigure = 18;
+                    break;
+
                 default:
                     break;
             }

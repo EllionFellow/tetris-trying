@@ -72,11 +72,12 @@ namespace MyTry
         private void Button2_Click(object sender, EventArgs e)
         {
             setka.GlobalLineCounter = 0;
+            label2.Text = $"Level {level}";
             button2.Enabled = false;
             timer1?.Dispose();
             timer1 = new System.Windows.Forms.Timer
             {
-                Interval = 250-level
+                Interval = 350-level
             };
             activeFigure = null;
             timer1.Stop();
@@ -100,10 +101,12 @@ namespace MyTry
                     activeFigure.FigureInGrid(setka, activeFigure);
                     Invalidate();
                     timer1.Dispose();
-                    MessageBox.Show("YOU LOOSE!", "Great", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"YOU LOOSE! {setka.GlobalLineCounter} Lines!", "Great", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     activeFigure = null;
                     setka.ClearGrid(setka);
                     button2.Enabled = true;
+                    level = 0;
+                    label2.Text = "";
                 }
             }
             else
@@ -118,8 +121,12 @@ namespace MyTry
                 {
                     activeFigure.FigureInGrid(setka, activeFigure);
                     activeFigure = null;
-                    setka.TestForClearing(setka);
-                    timer1.Interval = 250-level;
+                    if (setka.TestForClearing(setka))
+                    {
+                        level++;
+                        label2.Text = $"Level {level}";
+                    }
+                    timer1.Interval = 350-level;
                 }
             }
             Invalidate();
