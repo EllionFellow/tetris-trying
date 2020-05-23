@@ -57,7 +57,7 @@ namespace MyTry
             exit.Text = "X";
             exit.UseVisualStyleBackColor = false;
             exit.Click += new System.EventHandler(this.Exit_Click);
-            f2Label.Text = "\n \n - Press A or D to move \n - Press W to rotate \n - Press ESC to Pause \n \n - Press G to change Graphics mode";
+            f2Label.Text = "\n \n - Press A or D to move \n - Press W to rotate \n - Press ESC to Pause \n \n - Press G to change Graphics mode \n \n Made by EllioN";
             f2Label.AutoSize = true;
             f2Label.ForeColor = System.Drawing.Color.Snow;
             f2Label.Location = new System.Drawing.Point(1, 1);
