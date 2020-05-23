@@ -431,12 +431,22 @@ namespace MyTry.Classes
                         }
                         if (temp.Table[i, j] && (i + temp.X) > 11)
                         {
+                            temp.X -= 1;
+                            if (IsNextStepReal(temp, grid, 1))
+                            {
+                                break;
+                            }
                             real = false;
                             break;
                         }
 
                         if (temp.Table[i, j] && (i + temp.X) < 2)
                         {
+                            temp.X += 1;
+                            if (IsNextStepReal(temp, grid, 2))
+                            {
+                                break;
+                            }
                             real = false;
                             break;
                         }

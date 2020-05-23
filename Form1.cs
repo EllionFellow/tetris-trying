@@ -21,6 +21,11 @@ namespace MyTry
         System.Windows.Forms.Timer timer1;
         Grid setka;
         Figure activeFigure;
+        private bool gamePaused = false;
+        public Form form2 = new Form();
+        Button exit = new Button();
+        Label f2Label = new Label();
+
         public Form1()
         {
 
@@ -29,17 +34,58 @@ namespace MyTry
             setka = new Grid(14, 23);
             resizeMultiplierH = ((Height - 43)/ (setka.Height-3));
             resizeMultiplierW = ((Width -17 - 100) / (setka.Width-4));
-            ShowTheForm();
+            ShowTheForm(this);
+            form2.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            form2.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            form2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            form2.ClientSize = new System.Drawing.Size(200, 200);
+            form2.ControlBox = false;
+            form2.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            form2.Name = "Form2";
+            form2.Opacity = 0D;
+            form2.Text = "";
+            form2.ResumeLayout(false);
+            form2.PerformLayout();
+            exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            exit.ForeColor = System.Drawing.Color.Snow;
+            exit.Location = new System.Drawing.Point(form2.Width - 22, 1);
+            exit.Margin = new System.Windows.Forms.Padding(0);
+            exit.Name = "button2";
+            exit.Size = new System.Drawing.Size(21, 21);
+            exit.TabIndex = 0;
+            exit.Text = "X";
+            exit.UseVisualStyleBackColor = false;
+            exit.Click += new System.EventHandler(this.Exit_Click);
+            f2Label.Text = "\n \n - Press A or D to move \n - Press W to rotate \n - Press ESC to Pause \n \n - Press G to change Graphics mode";
+            f2Label.AutoSize = true;
+            f2Label.ForeColor = System.Drawing.Color.Snow;
+            f2Label.Location = new System.Drawing.Point(1, 1);
+            f2Label.Name = "f2label";
+            f2Label.Size = new System.Drawing.Size(0, 13);
+            form2.Controls.Add(exit);
+            form2.Controls.Add(f2Label);
+            form2.Paint += (sender, args) =>
+            {
+                args.Graphics.DrawRectangle(Pens.Gray,0,0,form2.Width-1,form2.Height-1);
+            };
+
         }
 
-        private async void ShowTheForm()
+        private void Exit_Click(object sender, EventArgs e)
         {
-            while (Opacity<0.99)
+            form2.Hide();
+
+        }
+
+        private async void ShowTheForm(Form xForm)
+        {
+            while (xForm.Opacity<0.99)
             {
             await Task.Delay(5);
-            Opacity += 0.04;
+            xForm.Opacity += 0.04;
             }
-            Opacity = 1;
+            xForm.Opacity = 1;
         }
 
         private void CloseTheForm()
@@ -194,9 +240,28 @@ namespace MyTry
                         Invalidate();
                     }
                     break;
-                case Keys.B:
+                case Keys.G:
+                    setka.easyGraphicsMode = !setka.easyGraphicsMode;
                     break;
-                default:
+                case Keys.Escape:
+                    if (activeFigure != null)
+                    {
+                        if (!gamePaused)
+                        {
+                            timer1.Stop();
+                        }
+                        else
+                        {
+                            timer1.Start();
+                        }
+
+                        gamePaused = !gamePaused;
+                        setka.gamePaused = gamePaused;
+                        Invalidate();
+                    }
+
+                    break;
+                case Keys.B:
                     break;
             }
 
@@ -205,6 +270,12 @@ namespace MyTry
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
            
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            form2.Show();
+            ShowTheForm(form2);
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)

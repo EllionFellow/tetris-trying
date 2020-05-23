@@ -16,7 +16,8 @@ namespace MyTry.Classes
         private int widthGrid;
         private int heightGrid;
         public int GlobalLineCounter=0;
-        private bool[,] table;
+        public bool gamePaused;
+        public bool easyGraphicsMode;
         #endregion
 
         public int Width
@@ -64,12 +65,12 @@ namespace MyTry.Classes
 
                 counter = 0;
             }
-                return toReturn;
+            return toReturn;
         }
 
         public int Height
         {
-            get { return heightGrid; }
+            get => heightGrid;
             set
             {
                 if (value > 0 && value < 100)
@@ -79,7 +80,7 @@ namespace MyTry.Classes
             }
         }
         public int Space { get; }
-        public bool[,] Table { get { return table; }}
+        public bool[,] Table { get; }
 
         #region //ctor
         public Grid(int width, int height)
@@ -87,7 +88,9 @@ namespace MyTry.Classes
             widthGrid = width;
             heightGrid = height;
             Space = widthGrid * heightGrid;
-            table = new bool[width, height];
+            Table = new bool[width, height];
+            gamePaused = false;
+            easyGraphicsMode = false;
         }
         #endregion
 
@@ -105,14 +108,27 @@ namespace MyTry.Classes
             {
                 for (int y = 3; y < grid.Height; y++)
                 {
-                    if (grid.table[x + 2, y] == true)
+                    if (grid.Table[x + 2, y] == true)
                     {
-
-                        //e.Graphics.DrawRectangle(Pens.Red, x * reW + 5, y * reH + 26 - 3 * reH, reW - 4, reH - 4);
                         
-                        Rectangle rect = new Rectangle(x * (int)reW + 5, y * (int)reH + 26 - 3 * (int)reH, (int)reW - 2, (int)reH - 2);
-                        e.Graphics.DrawIcon(Resources._1,rect);
 
+
+                        if (gamePaused)
+                        {
+                                e.Graphics.DrawString("PAUSED", new Font("Tahoma", 32.0f), Brushes.Gray, 10, ((grid.Height / 2 - 1) * reW)-3);
+                        }
+                        else
+                        {
+                            if (easyGraphicsMode)
+                            {
+                                e.Graphics.DrawRectangle(Pens.Red, x * reW + 5, y * reH + 26 - 3 * reH, reW - 4, reH - 4);
+                            }
+                            else
+                            {
+                                Rectangle rect = new Rectangle(x * (int) reW + 5, y * (int) reH + 26 - 3 * (int) reH, (int) reW - 2, (int) reH - 2);
+                                e.Graphics.DrawIcon(Resources._1, rect);
+                            }
+                        }
                     }
                 }
             }
