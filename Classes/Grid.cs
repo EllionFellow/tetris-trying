@@ -108,10 +108,10 @@ namespace MyTry.Classes
                     if (grid.table[x + 2, y] == true)
                     {
 
-                        e.Graphics.DrawRectangle(Pens.Red, x * reW + 5, y * reH + 26 - 3 * reH, reW - 4, reH - 4);
+                        //e.Graphics.DrawRectangle(Pens.Red, x * reW + 5, y * reH + 26 - 3 * reH, reW - 4, reH - 4);
                         
-                        //Rectangle rect = new Rectangle(x * (int)reW + 5, y * (int)reH + 26 - 3 * (int)reH, (int)reW - 2, (int)reH - 2);
-                        //e.Graphics.DrawIcon(Resources._1,rect);
+                        Rectangle rect = new Rectangle(x * (int)reW + 5, y * (int)reH + 26 - 3 * (int)reH, (int)reW - 2, (int)reH - 2);
+                        e.Graphics.DrawIcon(Resources._1,rect);
 
                     }
                 }

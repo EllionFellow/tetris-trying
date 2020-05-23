@@ -338,8 +338,11 @@ namespace MyTry.Classes
 
         public Figure Rotate(Figure xfig, Grid grid)
         {
+            Figure temp = new Figure(xfig.X,xfig.Y);
+            temp.typeOfFigure = xfig.typeOfFigure;
+
             bool real=true;
-            Figure temp = xfig;
+            СhangeTheInnerForm(temp, xfig.Table);
             switch (temp.typeOfFigure)
             {
                 case 1:
@@ -414,9 +417,6 @@ namespace MyTry.Classes
                     СhangeTheInnerForm(temp, figureZ18);
                     temp.typeOfFigure = 18;
                     break;
-
-                default:
-                    break;
             }
             for (int i = 0; i < 4; i++)
             {
@@ -425,6 +425,17 @@ namespace MyTry.Classes
                     for (int j = 0; j < 4; j++)
                     {
                         if (temp.Table[i, j] && grid.Table[i + xfig.X, j + xfig.Y])
+                        {
+                            real = false;
+                            break;
+                        }
+                        if (temp.Table[i, j] && (i + temp.X) > 11)
+                        {
+                            real = false;
+                            break;
+                        }
+
+                        if (temp.Table[i, j] && (i + temp.X) < 2)
                         {
                             real = false;
                             break;
